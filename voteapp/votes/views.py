@@ -3,7 +3,13 @@ from django.http import HttpResponse
 # Create your views here.
 
 def view_all_polls(request):
-    return HttpResponse('polls')
+    method = request.method
+    name = request.GET.get('name','username')
+    if method == 'GET':
+        data = request.GET.urlencode()
+    elif method == 'POST':
+        data = request.POST.urlencode()
+    return HttpResponse('method: %s name: %s' % (method,name))
 
 def create_poll(request):
     return HttpResponse("create")
